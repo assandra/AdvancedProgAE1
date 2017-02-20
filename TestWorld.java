@@ -8,14 +8,25 @@ public class TestWorld {
 		 */
 		int rRows = 10;
 		int cCols = 10;
-		Grid grid = new Grid(rRows,cCols);
-		grid.placeRandomThread();
+		Grid world = new Grid(rRows,cCols);
+
+		Cell [][] grid = world.getGrid();
+
+
+		world.placeRandomThread();
 
 
 
 		try {
       	while (true) {
-        	grid.toString();
+        	world.toString();
+
+        	System.out.println(world.getWorldPopulation());
+        	//System.out.println(grid[0][0].getOccupation());
+        //	System.out.println(grid[0][1].getOccupation());
+        //	System.out.println(grid[0][2].getOccupation());
+        //	System.out.println(grid[0][3].getOccupation());
+        //	System.out.println(grid[0][4].getOccupation());
         	Thread.sleep(500); // every 0.5 seconds
      }
     } 

@@ -3,19 +3,21 @@ public class Creature {
 	protected double lifeSpan;
 	protected double maxLifeSpan;
 	protected double fitnessLevel;
-	protected double maxFitnessLevel;
+	
 	protected boolean isAlive;
 	protected int x;
 	protected int y;
-	public Creature [][] grid;
+	protected Grid world;
+	public Cell [][] grid;
 
 	
 
 	//Default constructor
 	//CONSIDER LEAVING BLANK, SO JAVA INSERTS DEFAULT VALUES, GOOD DESIGN?
-	public Creature(int x, int y) {
+	public Creature(int x, int y, Cell [][] grid) {
 		this.x = x;
 		this.y = y;
+		this.world = world;
 		this.grid = grid;		
 
 	}
@@ -34,9 +36,7 @@ public class Creature {
 		return fitnessLevel;
 	}
 	
-	public double getMaxFitnessLevel() {
-		return maxFitnessLevel;
-	}
+	
 
 
 
@@ -58,9 +58,7 @@ public class Creature {
 		this.fitnessLevel= fitnessLevel;
 	}
 
-	protected void setMaxFitnessLevel(double maxFitnessLevel) {
-		this.maxFitnessLevel = maxFitnessLevel;
-	}
+
 
 
 

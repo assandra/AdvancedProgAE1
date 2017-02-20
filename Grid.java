@@ -12,8 +12,8 @@ public class Grid {
 	/** Instance Variables */
 	public int rows;
 	public int columns;
-	public Creature [][] grid;
-	public Thread [][] myThreads; 
+	public Cell [][] grid;
+	 
 	
 
 
@@ -21,8 +21,12 @@ public class Grid {
 	public Grid(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
-		grid = new Creature[rows][columns];
-		//myThreads = new Thread[rows][columns];
+		grid = new Cell[rows][columns];
+		
+	}
+
+	public Cell [][] getGrid() {
+		return grid;
 	}
 
 	
@@ -40,29 +44,24 @@ public class Grid {
 				int random = new Random().nextInt(3);
 
 				if (random==0) {
-					grid[i][j] = null;
-			}
-				else if (random==1) {
-				Species1 s1 = new Species1(i,j);
-
-				grid[i][j]  = s1;
-
-				Thread t = new Thread(s1);
-				t.start();
-			}
-			else if (random == 2) {
-					Species2 s2 = new Species2(i,j);
-					grid[i][j] = s2;
 					
+					grid[i][j] = new Cell(i,j);
+				}
+				else if (random==1) {
+					Species1 s1 = new Species1(i,j,grid);
+				
+					grid[i][j]  =new Cell(i,j,s1);
+					Thread t = new Thread(s1);
+					t.start();
+				}
+				else if (random == 2) {
+					Species2 s2 = new Species2(i,j,grid);
+				
+					grid[i][j] = new Cell(i, j, s2);
 					Thread t= new Thread(s2);
 					t.start();
 
-				}
-				
-			
-				
-				
-				
+				}	
 			}
 		}
 
@@ -72,21 +71,17 @@ public class Grid {
 
 	public String toString() {
 		String [] stringArray = new String [rows];
-
-		//for (int i=0; i<stringArray.length; i++) {
-		//	stringArray[i] = "0";
-		//}
 		String line = "";
 		for (int i = 0; i < grid.length; i++) {
       		for (int j = 0; j < grid[i].length; j++) {
       			String value ="";
-      			if (grid[i][j] == null){
+      			if (grid[i][j].getOccupation() == false){
       				value = "-";
       			}
 
-      			else if (grid[i][j]!= null) {
-      			 value = "" +grid[i][j].identifier();
-      		}
+      			else if (grid[i][j].getOccupation() == true) {
+      			 	value = "" +grid[i][j].getSpecies().identifier();
+      			}
 
       			 line +=" " +value;          
       		
@@ -102,6 +97,16 @@ public class Grid {
         System.out.println("--------");
         return line;
 	}
-
+	public int getWorldPopulation() {
+		int count =0;
+		for (int i=0; i<grid.length; i++) {
+			for (int j=0; j<grid[0].length; j++) {
+				if (grid[i][j].getOccupation() == true) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 
 }
