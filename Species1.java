@@ -39,9 +39,10 @@ public class Species1 extends Creature implements Runnable {
 				
 
 					if (isAlive == true) {
-						this.reproduce();
+						Cell [] n = this.getNeighbours();
+						this.reproduce2(n);
 						grid[x][y] = new Cell(x,y);
-						System.out.println(grid[x][y].getOccupation());
+					//	System.out.println(grid[x][y].getOccupation());
 						Thread.currentThread().interrupt();
 						//System.out.println(grid[0][0].getOccupation()+"can i see you 1 (0,0)");
 						//System.out.println(grid[0][1].getOccupation()+"can i see you 1 (0,1)");
@@ -290,7 +291,35 @@ public class Species1 extends Creature implements Runnable {
 
 		}
 
-	
+		public void reproduce2(Cell [] n) {
+			Cell [] myNeighbours = n;
+			//Cell [] myNeighbours = this.getNeighbours();
+			for (int i=0; i<myNeighbours.length; i++) {
+				if (myNeighbours[i].getOccupation() == false) {
+					Species1 newspecies = new Species1(myNeighbours[i].getX(),myNeighbours[i].getY(), grid);
+					grid[myNeighbours[i].getX()][myNeighbours[i].getY()] = new Cell (myNeighbours[i].getX(),myNeighbours[i].getY(), newspecies);
+
+					//System.out.println("THis happened instead 1");
+					Thread t = new Thread(newspecies);
+					t.start();
+				}
+				else if (myNeighbours[i].getOccupation() == true) {
+					if (Math.random()	<=	this.getFitnessLevel() - myNeighbours[i].getSpecies().getFitnessLevel()) {
+					Species1 newspecies = new Species1(myNeighbours[i].getX(),myNeighbours[i].getY(),grid);
+
+					myNeighbours[i].getSpecies().setIsAlive(false);
+					//System.out.println("1 ---I was killed at location" + (x+1) + (y+1));
+					grid[myNeighbours[i].getX()][myNeighbours[i].getY()] = new Cell (myNeighbours[i].getX(),myNeighbours[i].getY(), newspecies);
+					Thread t = new Thread(newspecies);
+					t.start();	
+				}
+				}
+				}
+			}
+		}
 
 	
-}
+
+
+
+	

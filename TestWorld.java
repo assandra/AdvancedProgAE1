@@ -15,9 +15,12 @@ public class TestWorld {
 
 		world.placeRandomThread();
 
+		grid[0][0].getSpecies().getNeighboursW1();
+		//System.out.println(grid[0].length);
+		//System.out.println(grid.length);
+		//world.toString();
 
-
-		try {
+		/*try {
       	while (true) {
         	world.toString();
 
@@ -33,7 +36,7 @@ public class TestWorld {
     catch (InterruptedException e) {
       e.printStackTrace();
     }
-  
+  */
 
 
 
