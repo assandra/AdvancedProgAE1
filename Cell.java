@@ -1,17 +1,22 @@
+/**
+*  A cell is a location on the 2d world grid, which a 
+*  species can occupy
+*/
 public class Cell {
 	
-	public boolean isOccupied;
-	public int x;
-	public int y;
-	public Creature species;
+	private boolean isOccupied;
+	private int x;
+	private int y;
+	private Creature species;
 
 	/** Constructor for unoccupied cell*/
 	public Cell(int x, int y) {
 		this.x = x;
 		this.y = y;
 		isOccupied = false;
-
 	}
+
+	/** Constructor for occupied cell*/
 	public Cell(int x, int y, Creature species) {
 		this.x=x;
 		this.y=y;
@@ -19,6 +24,7 @@ public class Cell {
 		isOccupied = true;
 	}
 
+	/** Accesor Methods */
 	public boolean getOccupation() {
 		return isOccupied;
 	}
@@ -30,13 +36,15 @@ public class Cell {
 	public int getY() {
 		return y;
 	}
-	
-	public void setOccupied(boolean isOccupied) {
-		this.isOccupied =  isOccupied;
-	}
 
 	public Creature getSpecies() {
 		return species;
+	}
+	
+
+	/** Mutator Methods*/
+	public void setOccupied(boolean isOccupied) {
+		this.isOccupied =  isOccupied;
 	}
 
 	public void setSpecies(Creature species) {
